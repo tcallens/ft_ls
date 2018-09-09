@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:02:36 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/09 04:37:07 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/09 05:32:56 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ int		main(int ac, char **av)
 	ft_putstr("t : ");
 	ft_intendl(args->t);
 	free(args);
-	while (1);
 	return (1);
 }
