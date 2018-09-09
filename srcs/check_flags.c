@@ -6,13 +6,13 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:04:43 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/05 22:02:24 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/09 04:21:43 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int		ft_options(char *str, t_args *args)
+int				ft_options(char *str, t_args *args)
 {
 	int a;
 
@@ -37,11 +37,11 @@ int		ft_options(char *str, t_args *args)
 	return (a);
 }
 
-t_args		*ft_init_args(char **av)
+t_args			*ft_init_args(char **av)
 {
-	t_args	*args;
-	int 	a;
-	int b;
+	t_args		*args;
+	int 		a;
+	int 		b;
 
 	a = 1;
 	if ((args = (t_args *)malloc(sizeof(t_args))) == NULL)

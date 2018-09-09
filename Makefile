@@ -5,6 +5,9 @@ LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
 	  ./srcs/check_flags.c\
 	  ./srcs/error.c\
+	  ./srcs/utils.c\
+	  ./srcs/print.c\
+
 	
 
 OPTIONS= -Wall -Wextra -Werror
