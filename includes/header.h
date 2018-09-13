@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/11 04:18:12 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/13 04:18:58 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void					ft_not_file(char *str);
 int						ls(char *name, t_args *args, int fichier);
 int						ft_nbr_files(char **av, int ac);
 void					find_files(char **av);
-void					find_dir(char **av, t_args *args);
+void					find_dir(char **av, t_args *args, int dir);
 void					ft_print_fichier(char *name);
-void					ft_print_dossier(char *name, t_args *args);
+void					ft_print_dossier(char *name, t_args *args, int ind);
 int						correct_args_free(char *str);
 t_file					**ft_init_dir(int nbr, t_file **dir);
-void					ft_ls_dir(char *name, t_args *args);
+void					ft_ls_dir(char *name, t_args *args, int dir);
 
 
 #endif

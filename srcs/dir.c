@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/11 03:41:46 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/13 04:21:07 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_file		**ft_init_dir(int nbr, t_file **dir)
 {
-	int	a;
+	int		a;
 
 	a = 0;
 	if ((dir = (t_file **)malloc(sizeof(t_file *) * nbr)) == NULL)
@@ -38,4 +38,3 @@ t_file		**ft_init_dir(int nbr, t_file **dir)
 	}
 	return (dir);
 }
-

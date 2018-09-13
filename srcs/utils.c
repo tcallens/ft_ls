@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 01:59:44 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/11 03:40:58 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/13 04:19:00 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	find_files(char **av)
 	}
 }
 
-void	find_dir(char **av, t_args *args)
+void	find_dir(char **av, t_args *args, int ind)
 {
 	int a;
 
@@ -45,7 +45,7 @@ void	find_dir(char **av, t_args *args)
 	while (av[a])
 	{
 		if (correct_args(av[a]) == 2)
-			ft_ls_dir(av[a], args);
+			ft_ls_dir(av[a], args, ind);
 		a++;
 	}
 }

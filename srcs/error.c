@@ -6,18 +6,18 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/11 03:36:27 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/13 04:11:42 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_error_options(void)
+void				ft_error_options(void)
 {
 	ft_putendl("pas bon arguement bordel");
 }
 
-int		correct_args(char *str)
+int					correct_args(char *str)
 {
 	int				ret;
 	struct stat		*stats;
@@ -40,7 +40,7 @@ int		correct_args(char *str)
 	return (ret);
 }
 
-int		correct_args_free(char *str)
+int					correct_args_free(char *str)
 {
 	int				ret;
 	struct stat		*stats;
@@ -64,8 +64,7 @@ int		correct_args_free(char *str)
 	return (ret);
 }
 
-
-void	ft_not_file(char *str)
+void				ft_not_file(char *str)
 {
 	ft_putstr_fd("ls: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
