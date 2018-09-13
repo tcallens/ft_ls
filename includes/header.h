@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/09 04:03:53 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/11 04:18:12 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <dirent.h>
 # include "../libft/libft.h"
 
+/*
+** structs
+*/
+
 typedef struct stat		t_stats;
 
 typedef struct			s_args
@@ -37,9 +41,25 @@ typedef struct			s_args
 	int		t;
 }						t_args;
 
+typedef struct		s_file
+{
+	char			*path;
+	char			*name;
+	char			*perms;
+	int				links;
+	char			*linkpath;
+	char			*user;
+	char			*group;
+	char			*size;
+	long			timestamp;
+	long			ntimestamp;
+	long			blocks;
+	int				error;
+}					t_file;
+
 /*
-** fonctions
-*/
+ ** fonctions
+ */
 
 t_args					*ft_init_args(char **av);
 int						ft_options(char *str, t_args *args);
@@ -48,9 +68,13 @@ void					ft_error_options(void);
 void					ft_not_file(char *str);
 int						ls(char *name, t_args *args, int fichier);
 int						ft_nbr_files(char **av, int ac);
-void					find_names(char **av, t_args *args);
+void					find_files(char **av);
+void					find_dir(char **av, t_args *args);
 void					ft_print_fichier(char *name);
-void					ft_print_dossier(char *path, char *name, t_args *args);
+void					ft_print_dossier(char *name, t_args *args);
+int						correct_args_free(char *str);
+t_file					**ft_init_dir(int nbr, t_file **dir);
+void					ft_ls_dir(char *name, t_args *args);
 
 
 #endif

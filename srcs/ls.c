@@ -1,46 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   ls.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/09 02:52:03 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/11 04:19:01 by tcallens         ###   ########.fr       */
+/*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
+/*   Updated: 2018/09/11 04:17:45 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_print_fichier(char *name)
+void		ft_ls_dir(char *name, t_args *args)
 {
-	ft_putendl(name);
-	ft_putendl("");
-}
-
-void	ft_print_dossier(char *name, t_args *args)
-{
+	char			*path;
 	DIR				*dir;
-	struct	dirent	*dp;
+	struct dirent	*dp;
 
+	path = ft_strjoin(name, "/");
+	ft_print_dossier(name, args);
 	dir = opendir(name);
-	ft_putstr(name);
-	(void)name;
-	ft_putendl(":");
-	while ((dp = readdir(dir)) != NULL)
+	while ((dp = readdir(dir)) != NULL && args->R == 1)
 	{
-		if (dp->d_name[0] != '.')
-		{
-			ft_putstr(dp->d_name);
-			ft_putstr(" ");
-		}
-		else if (args->a == 1)
-		{
-		ft_putstr(dp->d_name);
-		ft_putstr(" ");
-		}
+		if (dp->d_name[0] != '.' &&
+				correct_args_free(ft_strjoin(path, dp->d_name)) == 2)
+			ft_ls_dir(ft_strjoin(path, dp->d_name), args);
 	}
 	(void)closedir(dir);
-	ft_putendl("");
-	ft_putendl("");
 }
