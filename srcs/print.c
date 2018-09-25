@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 02:52:03 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/13 04:33:17 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/25 04:39:12 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void				ft_print_dossier(char *name, t_args *args, int ind)
 	struct dirent	*dp;
 
 	dir = opendir(name);
-	if (ind > 2)
+	if (ind > 1)
 	{
 	ft_putstr(name);
 	ft_putendl(":");
@@ -44,5 +44,21 @@ void				ft_print_dossier(char *name, t_args *args, int ind)
 	}
 	(void)closedir(dir);
 	ft_putendl("");
-	ft_putendl("");
+}
+
+void				ft_print_dir_l(t_file	**file, int ind, char *name)
+{
+	int a;
+
+	a = 0;
+	if (ind > 1)
+	{
+	ft_putstr(name);
+	ft_putendl(":");
+	}
+	while (file[a] && file[a]->name != ".")
+	{
+		ft_putendl(file[a]->name);
+		a++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 23:42:26 by tcallens          #+#    #+#             */
-/*   Updated: 2017/11/22 23:42:47 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/25 02:43:22 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+char			*ft_strjoin_free_s1(char const *s1, char const *s2);
 int				ft_calctrim(char const *str);
 int				ft_fisblank(char c);
 void			ft_putchar(char c);

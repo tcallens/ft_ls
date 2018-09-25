@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/13 04:11:42 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/25 04:39:13 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int					correct_args_free(char *str)
 	if ((dir = opendir(str)) != NULL)
 	{
 		(void)closedir(dir);
+		ft_memdel((void **)&str);
 		ret = 2;
 		return (ret);
 	}

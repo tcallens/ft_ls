@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 19:02:36 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 03:11:03 by tcallens         ###   ########.fr       */
+/*   Created: 2017/11/15 23:14:44 by tcallens          #+#    #+#             */
+/*   Updated: 2018/09/25 02:44:08 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+char	*ft_strjoin_free_s1(char const *s1, char const *s2)
 {
-	t_args	*args;
+	char	*fresh;
+	int		a;
+	int		b;
 
-	if ((args = ft_init_args(av)) == NULL)
-		return (0);
-	if (ft_first_files(av, ac) == 0)
-		ft_ls_dir("./", args, 1);
-	else
+	a = 0;
+	b = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	fresh = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (fresh == NULL)
+		return (NULL);
+	while (s1[a])
 	{
-		find_files(&av[ft_first_files(av, ac)]);
-		find_dir(&av[ft_first_files(av, ac)], args, ft_nbr_files(av));
+		fresh[a] = s1[a];
+		a++;
 	}
-	free(args);
-	return (1);
+	while (s2[b])
+		fresh[a++] = s2[b++];
+	fresh[a] = '\0';
+	free(&s1);
+	return (fresh);
 }
