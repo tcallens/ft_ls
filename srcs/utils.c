@@ -6,11 +6,35 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 01:59:44 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:09:43 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 04:47:56 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int		ft_file_link(char *name)
+{
+	struct stat *stats;
+	char		*str;
+	char		*ret;
+
+	str = NULL;
+	ret = NULL;
+	if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+		return (-1);
+	if (lstat(name, stats) == -1)
+		return (-1);
+	str = find_modes(stats, ret);
+	if (str[0] == 'l')
+	{
+		ft_strdel(&str);
+		free(name);
+		return (1);
+	}
+	ft_strdel(&str);
+	free(name);
+	return (0);
+}
 
 int		ft_nbr_files(char **av)
 {

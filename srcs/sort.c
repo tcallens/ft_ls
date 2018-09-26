@@ -6,16 +6,14 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:13:07 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:16:36 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 04:46:11 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*find_modes(struct stat *file)
+char	*find_modes(struct stat *file, char *ret)
 {
-	char *ret;
-
 	ret = ft_strnew(10);
 	ret[0] = '-';
 	ret[0] = ((file->st_mode & S_IFIFO) == S_IFIFO ? 'p' : ret[0]);

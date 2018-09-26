@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:21:15 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 04:46:28 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ typedef struct		s_file
  ** fonctions
  */
 
+void					ft_rec(char *name, t_args *args, int ind);
+int						ft_file_link(char *name);
+void					free_file(t_file *dir);
+void					free_dir(t_file **dir, int size);
 t_args					*ft_init_args(char **av);
 int						ft_options(char *str, t_args *args);
 int						correct_args(char *str);
@@ -83,15 +87,16 @@ int						correct_args_free(char *str);
 t_file					**ft_init_dir(int nbr, t_file **dir);
 void					ft_ls_dir(char *name, t_args *args, int dir);
 int						ft_nbr_files(char **av);
-void					ft_print_dir_l(t_file **file, int ind, char *name);
-void					fill_dir(char *name, t_args *args, int ind);
+void					ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args);
 t_file					*fill_stats(t_file *dir, char *name, char *path, t_stats *stats);
+t_file					**bef_fill_dir(char *name, t_info info);
+t_file					**fill_dir(char *name, char *path, t_info info, t_file **file);
 int						ft_dirlen(char *name);
 char					*find_link(char *path, char *file);
 char					*find_group(struct stat *stats);
 char					*find_user(struct stat *stats);
 int						find_error(char *file);
-char					*find_modes(struct stat *file);
+char					*find_modes(struct stat *file, char *ret);
 void					print_blocks(t_file **dir, int size, t_args *options);
 long					get_timestamp(char *dir);
 int						next_dir_offset(char **av);

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 02:52:03 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:39:12 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 04:44:25 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void				ft_print_dossier(char *name, t_args *args, int ind)
 	dir = opendir(name);
 	if (ind > 1)
 	{
-	ft_putstr(name);
-	ft_putendl(":");
+		ft_putstr(name);
+		ft_putendl(":");
 	}
 	while ((dp = readdir(dir)) != NULL)
 	{
@@ -38,27 +38,38 @@ void				ft_print_dossier(char *name, t_args *args, int ind)
 		}
 		else if (args->a == 1)
 		{
-		ft_putstr(dp->d_name);
-		ft_putstr(" ");
+			ft_putstr(dp->d_name);
+			ft_putstr(" ");
 		}
 	}
 	(void)closedir(dir);
 	ft_putendl("");
 }
 
-void				ft_print_dir_l(t_file	**file, int ind, char *name)
+void				ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args)
 {
 	int a;
 
 	a = 0;
 	if (ind > 1)
 	{
-	ft_putstr(name);
-	ft_putendl(":");
+		ft_putstr(name);
+		ft_putendl(":");
 	}
-	while (file[a] && file[a]->name != ".")
+	while (a < nbr)
 	{
-		ft_putendl(file[a]->name);
+		if (file[a]->name[0] != '.')
+		{
+			ft_putstr(file[a]->perms);
+			ft_putstr(" ");
+			ft_putendl(file[a]->name);
+		}
+		else if (args->a == 1)
+		{
+			ft_putstr(file[a]->perms);
+			ft_putstr(" ");
+			ft_putendl(file[a]->name);
+		}
 		a++;
 	}
 }

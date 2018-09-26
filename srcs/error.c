@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:39:13 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 02:30:47 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int					correct_args_free(char *str)
 		ret = 2;
 		return (ret);
 	}
-	if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
-		return (ret);
-	if (lstat(str, stats) == -1)
-		return (ret);
-	ret = 1;
-	free(stats);
-	ft_memdel((void **)&str);
+		if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+			return (ret);
+		if (lstat(str, stats) == -1)
+			return (ret);
+		ret = 1;
+		free(stats);
+		ft_memdel((void **)&str);
 	return (ret);
 }
 

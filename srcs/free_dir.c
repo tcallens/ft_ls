@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 19:02:36 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/26 04:39:41 by tcallens         ###   ########.fr       */
+/*   Created: 2018/09/26 01:17:30 by tcallens          #+#    #+#             */
+/*   Updated: 2018/09/26 01:44:46 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int		main(int ac, char **av)
+void	free_file(t_file *dir)
 {
-	t_args	*args;
-
-	if ((args = ft_init_args(av)) == NULL)
-		return (0);
-	if (ft_first_files(av, ac) == 0)
-		ft_ls_dir(ft_strjoin(".", ""), args, 1);
-	else
+	if (dir != NULL)
 	{
-		find_files(&av[ft_first_files(av, ac)]);
-		find_dir(&av[ft_first_files(av, ac)], args, ft_nbr_files(av));
+		ft_strdel(&dir->name);
+		ft_strdel(&dir->perms);
+		ft_strdel(&dir->user);
+		ft_strdel(&dir->group);
+		ft_strdel(&dir->size);
+		ft_strdel(&dir->linkpath);
+		free(dir);
 	}
-	free(args);
-	return (1);
+}
+
+void	free_dir(t_file **dir, int size)
+{
+	int i;
+
+	i = 0;
+	if (dir != NULL)
+	{
+		ft_strdel(&dir[0]->path);
+		while (i < size)
+			free_file(dir[i++]);
+		free(dir);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:39:10 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/26 04:48:59 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ t_file		**ft_init_dir(int nbr, t_file **dir)
 
 t_file	*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
 {
+	char *ret;
+
+	ret = NULL;
 	dir->name = ft_strdup(name);
-	dir->path = ft_strjoin(path, name);
-	dir->perms = find_modes(stats);
+	dir->path = ft_strdup(path);
+	dir->perms = find_modes(stats, ret);
 	dir->links = stats->st_nlink;
 	dir->linkpath = find_link(path, dir->name);
 	dir->user = find_user(stats);
@@ -70,40 +73,45 @@ t_file	*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
 	dir->ntimestamp = stats->st_mtimespec.tv_nsec;
 	dir->blocks = stats->st_blocks;
 	dir->error = find_error(name);
-	free(stats);
 	return (dir);
 }
 
-void	fill_dir(char *name, t_args *args, int ind)
+t_file	**bef_fill_dir(char *name, t_info info)
 {
-	DIR				*dir;
-	struct dirent	*dp;
 	t_file			**file;
-	struct stat		*stats;
-	int				a;
-	char			*tmp;
-	t_info			info;
+	char			*path;
 
-	if (args->l)
-		info.type = 0;
 	file = NULL;
-	info.size = ft_dirlen(name);
-	info.type = 0;
-	a = 0;
-	tmp = ft_strjoin(name, "/");
+	path = ft_strjoin(name, "/");
 	file = ft_init_dir(info.size, file);
-	if ((dir = opendir(name)) == NULL)
-		return ;
-	while (a < info.size && (dp = readdir(dir)) != NULL)
-	{
-		if ((stats = (struct stat *)malloc(sizeof(struct stat))) != NULL)
-		{
-			lstat(ft_strjoin(tmp,dp->d_name), stats);
-			file[a] = fill_stats(file[a], dp->d_name, tmp, stats);
-		}
-		a++;
-	}
-	ft_print_dir_l(file, ind, name);
-	(void)closedir(dir);
+	file = fill_dir(name, path, info, file);
+	ft_strdel(&path);
+	return (file);
 }
 
+t_file	**fill_dir(char *name, char *path, t_info info, t_file **file)
+{
+	DIR				*dir;
+	struct stat		*stats;
+	struct dirent	*dp;
+	char			*tmp;
+	int				a;
+
+	a = 0;
+	if ((dir = opendir(name)) == NULL)
+		return (NULL);
+	while (a < info.size && (dp = readdir(dir)) != NULL)
+	{
+		tmp = ft_strjoin(path, dp->d_name);
+		if ((stats = (struct stat *)malloc(sizeof(struct stat))) != NULL)
+		{
+			lstat(tmp, stats);
+			file[a] = fill_stats(file[a], dp->d_name, tmp, stats);
+			free(stats);
+		}
+		ft_strdel(&tmp);
+		a++;
+	}
+	(void)closedir(dir);
+	return (file);
+}
