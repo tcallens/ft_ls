@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 01:17:30 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/26 01:44:46 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 03:42:29 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_file(t_file *dir)
 	if (dir != NULL)
 	{
 		ft_strdel(&dir->name);
+		ft_strdel(&dir->path);
 		ft_strdel(&dir->perms);
 		ft_strdel(&dir->user);
 		ft_strdel(&dir->group);
@@ -33,7 +34,6 @@ void	free_dir(t_file **dir, int size)
 	i = 0;
 	if (dir != NULL)
 	{
-		ft_strdel(&dir[0]->path);
 		while (i < size)
 			free_file(dir[i++]);
 		free(dir);

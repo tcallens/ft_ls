@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/26 04:50:33 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 04:05:51 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 	t_file			**tabdir;
 	int				a;
 	t_info			info;
+	int				ret;
 
 	a = 0;
+	ret = 0;
 	info.size = ft_dirlen(name);
 	info.type = 0;
 	tabdir = bef_fill_dir(name, info);
@@ -54,29 +56,45 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 	else
 		ft_print_dir_l(tabdir, ind++, name, info.size, args);
 	free_dir(tabdir, info.size);
-	ft_rec(name, args, ind);
+	if (args->R == 1)
+		ft_rec(name, args, ind, ret);
 	free(name);
 }
 
-void		ft_rec(char *name, t_args *args, int ind)
+void		ft_rec(char *name, t_args *args, int ind, int ret)
 {
 	char			*path;
 	DIR				*dir;
 	struct dirent	*dp;
+	char			**tab;
+	int				a;
 
+	a = 0;
 	path = ft_strjoin(name, "/");
 	dir = opendir(name);
+	tab = (char **)malloc(sizeof(char *) * ft_dirlen(name) + 1);
 	while ((dp = readdir(dir)) != NULL && args->R == 1)
 	{
-		if (dp->d_name[0] != '.' &&
-				correct_args_free(ft_strjoin(path, dp->d_name)) == 2 &&
-				ft_file_link(ft_strjoin(path,dp->d_name)) == 0)
-		{
-			ft_putendl("");
-			ft_ls_dir(ft_strjoin(path, dp->d_name), args, ind);
-		}
+		if (dp->d_name[0] == '.' && dp->d_name[1] && dp->d_name[1] != '.'
+				&& args->a == 1
+				&& (correct_args_free(ft_strjoin(path, dp->d_name)) == 2)
+				&& (ft_file_link(ft_strjoin(path, dp->d_name)) == 0))
+			tab[a++] = ft_strjoin(path, dp->d_name);
+		else if (dp->d_name[0] != '.'
+				&& correct_args_free(ft_strjoin(path, dp->d_name)) == 2 &&
+				ft_file_link(ft_strjoin(path, dp->d_name)) == 0)
+			tab[a++] = ft_strjoin(path, dp->d_name);
 	}
+	tab = ft_range_r(tab, --a, args);
+	tab = ft_range_t(tab, a, args);
+	ret = a;
+	a = 0;
+	while (a <= ret)
+	{
+		ft_putendl("");
+		ft_ls_dir(tab[a++], args, ind);
+	}
+	free(tab);
 	free(path);
 	(void)closedir(dir);
-
 }

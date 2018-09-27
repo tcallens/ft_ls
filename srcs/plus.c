@@ -6,11 +6,31 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:10:52 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/25 04:28:09 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 03:42:39 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	ft_print_double(char **str)
+{
+	int a;
+	int ret;
+
+	ret = 0;
+	a = 0;
+	while (str[a])
+	{
+		if (correct_args(str[a]) == 1)
+			ret = 1;
+		a++;
+	}
+	if (ret == 1)
+	{
+		ft_putendl("");
+		ft_putendl("");
+	}
+}
 
 void	print_blocks(t_file **dir, int size, t_args *options)
 {

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/26 04:50:31 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 03:26:18 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			ft_dirlen(char *name)
 
 	ret = 0;
 	if ((dir = opendir(name)) == NULL)
-		ret = 1;
+		return (-1);
 	else
 		while ((file = readdir(dir)) != NULL)
 			ret++;

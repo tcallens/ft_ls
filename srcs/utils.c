@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 01:59:44 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/26 04:47:56 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 03:43:05 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int		ft_file_link(char *name)
 	{
 		ft_strdel(&str);
 		free(name);
+		free(stats);
 		return (1);
 	}
+	free(stats);
 	ft_strdel(&str);
 	free(name);
 	return (0);
@@ -45,7 +47,7 @@ int		ft_nbr_files(char **av)
 	ind = 0;
 	while (av[a] && av[a][0] == '-')
 		a++;
-	while (av[a] && av[a][0] != '-' && (correct_args(av[a]) > 0))
+	while (av[a] && av[a][0] != '-' && (correct_args(av[a]) == 2))
 	{
 		a++;
 		ind++;
@@ -70,14 +72,28 @@ int		ft_first_files(char **av, int ac)
 void	find_files(char **av)
 {
 	int a;
+	int b;
 
+	a = 0;
+	b = 0;
+	while (av[a])
+	{
+		if (correct_args(av[a]) == 1)
+			b++;;
+		a++;
+	}
 	a = 0;
 	while (av[a])
 	{
 		if (correct_args(av[a]) == 1)
+		{
 			ft_print_fichier(av[a]);
+			if (b-- != 1)
+				ft_putstr(" ");
+		}
 		a++;
 	}
+	ft_print_double(av);
 }
 
 void	find_dir(char **av, t_args *args, int ind)

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:04:43 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/13 04:10:58 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 02:41:55 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_args				*ft_init_args(char **av)
 	args->a = 0;
 	args->r = 0;
 	args->t = 0;
+	args->nbrfiles = ft_files(av);
 	while (av[a] && av[a][0] == '-')
 	{
 		b = ft_options(av[a++], args);
@@ -62,4 +63,20 @@ t_args				*ft_init_args(char **av)
 		a++;
 	}
 	return (args);
+}
+
+int					ft_files(char **av)
+{
+	int a;
+	int ret;
+
+	a = 1;
+	ret = 0;
+	while (av[a])
+	{
+		if (correct_args(av[a]) == 1)
+			ret++;
+		a++;
+	}
+	return (ret);
 }
