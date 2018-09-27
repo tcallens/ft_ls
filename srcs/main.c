@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:02:36 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 03:43:41 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 04:21:12 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ int		main(int ac, char **av)
 		find_dir(&av[ft_first_files(av, ac)], args, ft_nbr_files(av));
 	}
 	free(args);
-	while (1);
 	return (1);
 }

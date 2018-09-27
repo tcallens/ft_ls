@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 04:06:13 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 04:26:05 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ typedef struct		s_file
  ** fonctions
  */
 
+void					ft_help_rec(int a, t_args *args, char **tab, int ind);
 char					**ft_range_t(char **tab, int nbr, t_args *args);
 int						ft_cmp_time(char *s1, char *s2, long c, long d);
 int						ft_files(char **av);
 void					ft_print_double(char **str);
 char					**ft_range_r(char **tab, int nbr, t_args *args);
-void					ft_rec(char *name, t_args *args, int ind, int ret);
+void					ft_rec(char *name, t_args *args, int ind);
 int						ft_file_link(char *name);
 void					free_file(t_file *dir);
 void					free_dir(t_file **dir, int size);

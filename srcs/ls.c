@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 04:05:51 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/27 04:43:34 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 	t_file			**tabdir;
 	int				a;
 	t_info			info;
-	int				ret;
 
 	a = 0;
-	ret = 0;
 	info.size = ft_dirlen(name);
 	info.type = 0;
 	tabdir = bef_fill_dir(name, info);
@@ -57,11 +55,11 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 		ft_print_dir_l(tabdir, ind++, name, info.size, args);
 	free_dir(tabdir, info.size);
 	if (args->R == 1)
-		ft_rec(name, args, ind, ret);
+		ft_rec(name, args, ind);
 	free(name);
 }
 
-void		ft_rec(char *name, t_args *args, int ind, int ret)
+void		ft_rec(char *name, t_args *args, int ind)
 {
 	char			*path;
 	DIR				*dir;
@@ -85,8 +83,17 @@ void		ft_rec(char *name, t_args *args, int ind, int ret)
 				ft_file_link(ft_strjoin(path, dp->d_name)) == 0)
 			tab[a++] = ft_strjoin(path, dp->d_name);
 	}
-	tab = ft_range_r(tab, --a, args);
+	ft_help_rec(a, args, tab, ind);
+	free(path);
+	(void)closedir(dir);
+}
+
+void		ft_help_rec(int a, t_args *args, char **tab, int ind)
+{
+	int ret;
+
 	tab = ft_range_t(tab, a, args);
+	tab = ft_range_r(tab, --a, args);
 	ret = a;
 	a = 0;
 	while (a <= ret)
@@ -95,6 +102,4 @@ void		ft_rec(char *name, t_args *args, int ind, int ret)
 		ft_ls_dir(tab[a++], args, ind);
 	}
 	free(tab);
-	free(path);
-	(void)closedir(dir);
 }
