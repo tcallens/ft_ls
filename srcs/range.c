@@ -6,11 +6,61 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 00:49:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 04:44:28 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/28 04:04:12 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+t_file		**ft_range_r_dir(t_file **tab, int nbr, t_args *args)
+{
+	int		a;
+	t_file	*tmp;
+
+	a = 0;
+	tmp = NULL;
+	nbr--;
+	if (args->r == 1 && nbr > 0)
+	{
+		while (a < nbr)
+		{
+			tmp = tab[a];
+			tab[a] = tab[nbr];
+			tab[nbr] = tmp;
+			tmp = NULL;
+			nbr--;
+			a++;
+		}
+	}
+	return (tab);
+}
+
+t_file		**ft_range_t_dir(t_file  **tab, int nbr, t_args *args)
+{
+	int		a;
+	t_file	*tmp;
+
+	a = 0;
+	if (args->t == 1 && nbr > 0)
+	{
+		while (a < nbr - 1)
+		{
+			if ((tab[a]->timestamp < tab[a + 1]->timestamp)
+					|| (tab[a]->timestamp == tab[a + 1]->timestamp
+						&& tab[a]->ntimestamp < tab[a + 1]->ntimestamp))
+			{
+				tmp = tab[a];
+				tab[a] = tab[a + 1];
+				tab[a + 1] = tmp;
+				tmp = NULL;
+				a = 0;
+			}
+			else
+				a++;
+		}
+	}
+	return (tab);
+}
 
 char		**ft_range_r(char **tab, int nbr, t_args *args)
 {
@@ -23,7 +73,7 @@ char		**ft_range_r(char **tab, int nbr, t_args *args)
 	{
 		while (a < nbr)
 		{
-			tmp = tab [a];
+			tmp = tab[a];
 			tab[a] = tab[nbr];
 			tab[nbr] = tmp;
 			tmp = NULL;
@@ -44,15 +94,17 @@ char	**ft_range_t(char **tab, int nbr, t_args *args)
 	a = 0;
 	c = 0;
 	d = 0;
+	a = 0;
 	if (args->t == 1 && nbr > 0)
 	{
-		while (a < nbr)
+		while (a < nbr - 1)
 		{
 			if (ft_cmp_time(tab[a], tab[a + 1], c, d) == 1)
 			{
 				tmp = tab[a];
 				tab[a] = tab[a + 1];
 				tab[a + 1] = tmp;
+				tmp = NULL;
 				a = 0;
 			}
 			else
