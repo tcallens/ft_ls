@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:04:43 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 02:41:55 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 02:36:36 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int					ft_options(char *str, t_args *args)
 	{
 		if (str[a] != 'l' && str[a] != 'R' && str[a] != 'a' && str[a] != 'r'
 				&& str[a] != 't')
-			ft_error_options();
+			ft_error_options(str[a]);
 		if (str[a] == 'l')
 			args->l = 1;
 		if (str[a] == 'R')
@@ -52,14 +52,18 @@ t_args				*ft_init_args(char **av)
 	args->r = 0;
 	args->t = 0;
 	args->nbrfiles = ft_files(av);
+	args->notfile = 0;
 	while (av[a] && av[a][0] == '-')
 	{
-		b = ft_options(av[a++], args);
+		if (!(av[a][1]))
+			args = ft_not_file(av[a++], args);
+		else
+			b = ft_options(av[a++], args);
 	}
 	while (av[a])
 	{
 		if (correct_args(av[a]) == 0)
-			ft_not_file(av[a]);
+			args = ft_not_file(av[a], args);
 		a++;
 	}
 	return (args);
@@ -78,5 +82,28 @@ int					ft_files(char **av)
 			ret++;
 		a++;
 	}
+	return (ret);
+}
+
+int					correct_args(char *str)
+{
+	int				ret;
+	struct stat		*stats;
+	DIR				*dir;
+
+	stats = NULL;
+	ret = 0;
+	if ((dir = opendir(str)) != NULL)
+	{
+		(void)closedir(dir);
+		ret = 2;
+		return (ret);
+	}
+	if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+		return (ret);
+	if (lstat(str, stats) == -1)
+		return (ret);
+	ret = 1;
+	free(stats);
 	return (ret);
 }

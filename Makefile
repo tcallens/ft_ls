@@ -14,6 +14,7 @@ SRCS= ./srcs/main.c\
 	  ./srcs/free_dir.c\
 	  ./srcs/range.c\
 	  ./srcs/pad.c\
+	  ./srcs/print_plus.c\
 	
 
 OPTIONS= -g -Wall -Wextra -Werror

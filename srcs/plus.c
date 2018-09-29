@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:10:52 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 03:42:39 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:46:12 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*find_majmin(struct stat *stats)
 	{
 		ret = ft_strjoin(ft_itoa(major(stats->st_rdev)), ", ");
 		ret = ft_strjoin(ret, ft_itoa(minor(stats->st_rdev)));
-		ret = ft_strjoin (ret, "\0");
+		ret = ft_strjoin(ret, "\0");
 	}
 	return (ret);
 }

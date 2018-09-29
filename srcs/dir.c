@@ -6,13 +6,13 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/28 02:28:08 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:44:44 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int			ft_dirlen(char *name)
+int					ft_dirlen(char *name)
 {
 	int				ret;
 	DIR				*dir;
@@ -26,12 +26,11 @@ int			ft_dirlen(char *name)
 			ret++;
 	(void)closedir(dir);
 	return (ret);
-
 }
 
-t_file		**ft_init_dir(int nbr, t_file **dir)
+t_file				**ft_init_dir(int nbr, t_file **dir)
 {
-	int		a;
+	int				a;
 
 	a = 0;
 	if ((dir = (t_file **)malloc(sizeof(t_file *) * nbr)) == NULL)
@@ -56,9 +55,9 @@ t_file		**ft_init_dir(int nbr, t_file **dir)
 	return (dir);
 }
 
-t_file	*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
+t_file				*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
 {
-	char *ret;
+	char			*ret;
 
 	ret = NULL;
 	dir->name = ft_strdup(name);
@@ -76,7 +75,7 @@ t_file	*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
 	return (dir);
 }
 
-t_file	**bef_fill_dir(char *name, t_info info)
+t_file				**bef_fill_dir(char *name, t_info info)
 {
 	t_file			**file;
 	char			*path;
@@ -89,7 +88,7 @@ t_file	**bef_fill_dir(char *name, t_info info)
 	return (file);
 }
 
-t_file	**fill_dir(char *name, char *path, t_info info, t_file **file)
+t_file				**fill_dir(char *name, char *path, t_info info, t_file **file)
 {
 	DIR				*dir;
 	struct stat		*stats;

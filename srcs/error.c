@@ -6,38 +6,18 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/28 02:29:08 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 02:31:55 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void				ft_error_options(void)
+void				ft_error_options(char option)
 {
-	ft_putendl("pas bon arguement bordel");
-}
-
-int					correct_args(char *str)
-{
-	int				ret;
-	struct stat		*stats;
-	DIR				*dir;
-
-	stats = NULL;
-	ret = 0;
-	if ((dir = opendir(str)) != NULL)
-	{
-		(void)closedir(dir);
-		ret = 2;
-		return (ret);
-	}
-	if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
-		return (ret);
-	if (lstat(str, stats) == -1)
-		return (ret);
-	ret = 1;
-	free(stats);
-	return (ret);
+	ft_putstr_fd("./ft_ls: illegal option -- ", STDERR_FILENO);
+	ft_putchar_fd(option, STDERR_FILENO);
+	ft_putstr_fd("\nusage: ./ft_ls [-lartR] [file ...]\n", STDERR_FILENO);
+	exit(1);
 }
 
 int					correct_args_free(char *str)
@@ -65,14 +45,16 @@ int					correct_args_free(char *str)
 	return (ret);
 }
 
-void				ft_not_file(char *str)
+t_args				*ft_not_file(char *str, t_args *args)
 {
 	ft_putstr_fd("ls: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	args->notfile = 1;
+	return (args);
 }
 
-void	perm_denied(char *file, t_info info)
+void				perm_denied(char *file, t_info info)
 {
 	if (info.size > 1)
 		ft_putchar('\n');
@@ -81,13 +63,9 @@ void	perm_denied(char *file, t_info info)
 	ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 }
 
-/*
- * **	not_permitted - printing EAPERM permission error
- * */
-
-void	not_permitted(t_file **file, t_info info)
+void				not_permitted(t_file **file, t_info info)
 {
-	int a;
+	int				a;
 
 	a = -1;
 	while (++a < info.size)

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/28 03:59:17 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 02:58:06 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 	info.size = ft_dirlen(name);
 	info.type = 0;
 	tabdir = bef_fill_dir(name, info);
-	pad = ft_fill_pad(ft_init_pad(), info.size, tabdir);
+	pad = ft_fill_pad(ft_init_pad(), info.size, tabdir, args);
 	not_permitted(tabdir, info);
 	//if (args->l == 0)
 	//	ft_print_dossier(name, args, ind++, info);
@@ -31,12 +31,13 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 		ft_print_dir_l(tabdir, ind++, name, info.size, args, pad, info);
 	free_dir(tabdir, info.size);
 	free(pad);
+	info.ind = ind;
 	if (args->R == 1)
-		ft_rec(name, args, ind, info);
+		ft_rec(name, args, info);
 	free(name);
 }
 
-void		ft_rec(char *name, t_args *args, int ind, t_info info)
+void		ft_rec(char *name, t_args *args, t_info info)
 {
 	char			*path;
 	DIR				*dir;
@@ -60,12 +61,12 @@ void		ft_rec(char *name, t_args *args, int ind, t_info info)
 				ft_file_link(ft_strjoin(path, dp->d_name)) == 0)
 			tab[a++] = ft_strjoin(path, dp->d_name);
 	}
-	ft_help_rec(a, args, tab, ind, info);
+	ft_help_rec(a, args, tab, info);
 	free(path);
 	(void)closedir(dir);
 }
 
-void		ft_help_rec(int a, t_args *args, char **tab, int ind, t_info info)
+void		ft_help_rec(int a, t_args *args, char **tab, t_info info)
 {
 	int ret;
 
@@ -77,7 +78,7 @@ void		ft_help_rec(int a, t_args *args, char **tab, int ind, t_info info)
 	{
 		ft_putendl("");
 		if (find_error(tab[a]) != EACCES)
-			ft_ls_dir(tab[a++], args, ind);
+			ft_ls_dir(tab[a++], args, info.ind);
 		else
 			perm_denied(tab[a++], info);
 	}

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/28 03:49:47 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 02:56:56 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_info
 {
 	int				size;
 	int				type;
+	int				ind;
 }					t_info;
 
 
@@ -59,6 +60,7 @@ typedef struct			s_args
 	int		r;
 	int		t;
 	int		nbrfiles;
+	int		notfile;
 }						t_args;
 
 typedef struct		s_file
@@ -88,17 +90,17 @@ void					ft_print_file_l(t_file *file, t_pad *pad, t_info info);
 int						ft_nbrlen(int a);
 int						ft_if(int v1, int v2);
 t_pad					*ft_init_pad(void);
-t_pad					*ft_fill_pad(t_pad *pad, int nbr, t_file **file);
+t_pad					*ft_fill_pad(t_pad *pad, int nbr, t_file **file, t_args *args);
 void					ft_print_b(int nbr);
 void					ft_print_link(char *str);
 void					ft_print_time(long a);
-void					ft_help_rec(int a, t_args *args, char **tab, int ind, t_info info);
+void					ft_help_rec(int a, t_args *args, char **tab, t_info info);
 int						ft_cmp_time(char *s1, char *s2, long c, long d);
 t_file					**ft_range_t_dir(t_file **tab, int nbr, t_args *args);
 char					**ft_range_t(char **tab, int nbr, t_args *args);
 int						ft_files(char **av);
 void					ft_print_double(char **str);
-void					ft_rec(char *name, t_args *args, int ind, t_info info);
+void					ft_rec(char *name, t_args *args, t_info info);
 t_file					**ft_range_r_dir(t_file **tab, int nbr, t_args *args);
 char					**ft_range_r(char **tab, int nbr, t_args *args);
 int						ft_file_link(char *name);
@@ -107,14 +109,12 @@ void					free_dir(t_file **dir, int size);
 t_args					*ft_init_args(char **av);
 int						ft_options(char *str, t_args *args);
 int						correct_args(char *str);
-void					ft_error_options(void);
-void					ft_not_file(char *str);
+void					ft_error_options(char option);
+t_args					*ft_not_file(char *str, t_args *args);
 int						ls(char *name, t_args *args, int fichier);
 int						ft_first_files(char **av, int ac);
 void					find_files(char **av);
 void					find_dir(char **av, t_args *args, int dir);
-void					ft_print_fichier(char *name);
-void					ft_print_dossier(char *name, t_args *args, int ind, t_info info);
 int						correct_args_free(char *str);
 t_file					**ft_init_dir(int nbr, t_file **dir);
 void					ft_ls_dir(char *name, t_args *args, int dir);

@@ -6,16 +6,16 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 00:49:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/28 04:04:12 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/29 03:03:08 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-t_file		**ft_range_r_dir(t_file **tab, int nbr, t_args *args)
+t_file			**ft_range_r_dir(t_file **tab, int nbr, t_args *args)
 {
-	int		a;
-	t_file	*tmp;
+	int			a;
+	t_file		*tmp;
 
 	a = 0;
 	tmp = NULL;
@@ -35,10 +35,10 @@ t_file		**ft_range_r_dir(t_file **tab, int nbr, t_args *args)
 	return (tab);
 }
 
-t_file		**ft_range_t_dir(t_file  **tab, int nbr, t_args *args)
+t_file			**ft_range_t_dir(t_file **tab, int nbr, t_args *args)
 {
-	int		a;
-	t_file	*tmp;
+	int			a;
+	t_file		*tmp;
 
 	a = 0;
 	if (args->t == 1 && nbr > 0)
@@ -62,10 +62,10 @@ t_file		**ft_range_t_dir(t_file  **tab, int nbr, t_args *args)
 	return (tab);
 }
 
-char		**ft_range_r(char **tab, int nbr, t_args *args)
+char			**ft_range_r(char **tab, int nbr, t_args *args)
 {
-	int		a;
-	char	*tmp;
+	int			a;
+	char		*tmp;
 
 	a = 0;
 	tmp = NULL;
@@ -84,17 +84,16 @@ char		**ft_range_r(char **tab, int nbr, t_args *args)
 	return (tab);
 }
 
-char	**ft_range_t(char **tab, int nbr, t_args *args)
+char			**ft_range_t(char **tab, int nbr, t_args *args)
 {
-	int		a;
-	char	*tmp;
-	long	c;
-	long	d;
+	int			a;
+	char		*tmp;
+	long		c;
+	long		d;
 
 	a = 0;
 	c = 0;
 	d = 0;
-	a = 0;
 	if (args->t == 1 && nbr > 0)
 	{
 		while (a < nbr - 1)
@@ -114,7 +113,7 @@ char	**ft_range_t(char **tab, int nbr, t_args *args)
 	return (tab);
 }
 
-int		ft_cmp_time(char *s1, char *s2, long c, long d)
+int				ft_cmp_time(char *s1, char *s2, long c, long d)
 {
 	struct stat	*stats;
 	struct stat	*stats2;
@@ -137,5 +136,5 @@ int		ft_cmp_time(char *s1, char *s2, long c, long d)
 	free(stats2);
 	if ((a < b) || (a == b && c < d))
 		return (1);
-	return (0);	
+	return (0);
 }
