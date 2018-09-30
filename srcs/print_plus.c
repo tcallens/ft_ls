@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 01:47:02 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 02:54:46 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:24:07 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args, 
 		ft_putstr(name);
 		ft_putendl(":");
 	}
-	//ft_intendl((int)file[3]->blocks);
 	file = ft_range_t_dir(file, nbr, args);
 	file = ft_range_r_dir(file, nbr, args);
 	while (a < nbr)
@@ -58,24 +57,28 @@ void		ft_print_b(int nbr)
 
 void		ft_print_file_l(t_file *file, t_pad *pad, t_info info)
 {
-	if (file->error == EACCES && info.type == 1)
-		perm_denied(file->name, info);
-	else if (file->error == EPERM)
-		return ;
-	ft_putstr(file->perms);
-	ft_print_b(pad->links - ft_nbrlen(file->links) + 2);
-	ft_putnbr(file->links);
-	ft_print_b(pad->user - ft_strlen(file->user) + 1);
-	ft_putstr(file->user);
-	ft_print_b(pad->group - ft_strlen(file->group) + 2);
-	ft_putstr(file->group);
-	ft_print_b(pad->size - ft_strlen(file->size) + 2);
-	ft_putstr(file->size);
-	ft_putstr(" ");
-	ft_print_time(file->timestamp);
-	ft_putstr(" ");
-	ft_putstr(file->name);
-	if (file->linkpath != NULL)
-		ft_print_link(file->linkpath);
-	ft_putchar('\n');
+	info.size = info.size;
+	//if (file->error == EACCES)
+	//	perm_denied(file->name, info);
+	if (file->error == EPERM)
+		return;
+	else
+	{
+		ft_putstr(file->perms);
+		ft_print_b(pad->links - ft_nbrlen(file->links) + 2);
+		ft_putnbr(file->links);
+		ft_print_b(pad->user - ft_strlen(file->user) + 1);
+		ft_putstr(file->user);
+		ft_print_b(pad->group - ft_strlen(file->group) + 2);
+		ft_putstr(file->group);
+		ft_print_b(pad->size - ft_strlen(file->size) + 2);
+		ft_putstr(file->size);
+		ft_putstr(" ");
+		ft_print_time(file->timestamp);
+		ft_putstr(" ");
+		ft_putstr(file->name);
+		if (file->linkpath != NULL)		
+			ft_print_link(file->linkpath);
+		ft_putchar('\n');
+	}
 }

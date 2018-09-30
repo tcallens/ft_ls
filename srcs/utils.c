@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 01:59:44 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 02:53:43 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:15:45 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	find_dir(char **av, t_args *args, int ind)
 	name = NULL;
 	while (av[a])
 	{
+		ft_intendl(a);
 		if (correct_args(av[a]) == 2)
 		{
 			name = ft_strjoin(av[a], "");

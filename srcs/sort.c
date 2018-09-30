@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:13:07 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/27 02:06:57 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:21:13 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,13 @@ char	*find_group(struct stat *stats)
 	return (ret);
 }
 
-char	*find_link(char *path, char *file)
+char	*find_link(char *path)
 {
 	char	*buf;
-	char	*tmp;
 
-	tmp = ft_strdup(path);
-	path = ft_strjoin(tmp, file);
 	if ((buf = ft_strnew(1024)) == NULL)
 		return (NULL);
 	if (readlink(path, buf, 256) == -1)
 		ft_strdel(&buf);
-	ft_strdel(&tmp);
-	ft_strdel(&path);
 	return (buf);
 }

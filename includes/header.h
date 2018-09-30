@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 02:56:56 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:30:45 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_file					**ft_range_t_dir(t_file **tab, int nbr, t_args *args);
 char					**ft_range_t(char **tab, int nbr, t_args *args);
 int						ft_files(char **av);
 void					ft_print_double(char **str);
-void					ft_rec(char *name, t_args *args, t_info info);
+void					ft_rec(char *name, t_args *args, t_info info, t_file **tabdir);
 t_file					**ft_range_r_dir(t_file **tab, int nbr, t_args *args);
 char					**ft_range_r(char **tab, int nbr, t_args *args);
 int						ft_file_link(char *name);
@@ -124,7 +124,7 @@ t_file					*fill_stats(t_file *dir, char *name, char *path, t_stats *stats);
 t_file					**bef_fill_dir(char *name, t_info info);
 t_file					**fill_dir(char *name, char *path, t_info info, t_file **file);
 int						ft_dirlen(char *name);
-char					*find_link(char *path, char *file);
+char					*find_link(char *path);
 char					*find_group(struct stat *stats);
 char					*find_user(struct stat *stats);
 int						find_error(char *file);

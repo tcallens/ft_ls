@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 02:31:55 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:16:49 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_args				*ft_not_file(char *str, t_args *args)
 
 void				perm_denied(char *file, t_info info)
 {
-	if (info.size > 1)
+	if (info.size > 2)
 		ft_putchar('\n');
 	ft_putstr_fd("./ft_ls: ", STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);

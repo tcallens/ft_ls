@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 01:44:44 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/09/30 04:30:23 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_file				*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
 	dir->path = ft_strdup(path);
 	dir->perms = find_modes(stats, ret);
 	dir->links = stats->st_nlink;
-	dir->linkpath = find_link(path, dir->name);
+	dir->linkpath = find_link(path);
 	dir->user = find_user(stats);
 	dir->group = find_group(stats);
 	dir->size = find_majmin(stats);
