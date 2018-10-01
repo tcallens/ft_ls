@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 01:47:02 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/30 04:24:07 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 08:57:38 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		ft_print_link(char *str)
 	ft_putstr(str);
 }
 
-void		ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args, t_pad *pad, t_info info)
+t_file		**ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args, t_pad *pad)
 {
 	int		a;
 
@@ -28,6 +28,9 @@ void		ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args, 
 		ft_putstr(name);
 		ft_putendl(":");
 	}
+	if (args->l == 1)
+		print_blocks(file, nbr, args);
+	file = ft_sort_as(file, nbr);
 	file = ft_range_t_dir(file, nbr, args);
 	file = ft_range_r_dir(file, nbr, args);
 	while (a < nbr)
@@ -38,12 +41,13 @@ void		ft_print_dir_l(t_file **file, int ind, char *name, int nbr, t_args *args, 
 			if (args->l == 0)
 				ft_print_name(file[a]->name);
 			else
-				ft_print_file_l(file[a], pad, info);
+				ft_print_file_l(file[a], pad);
 		}
 		a++;
 	}
 	if (ft_dirlen(name) > 2 && args->l == 0)
 		ft_putendl("");
+	return (file);
 }
 
 void		ft_print_b(int nbr)
@@ -55,11 +59,8 @@ void		ft_print_b(int nbr)
 		ft_putstr(" ");
 }
 
-void		ft_print_file_l(t_file *file, t_pad *pad, t_info info)
+void		ft_print_file_l(t_file *file, t_pad *pad)
 {
-	info.size = info.size;
-	//if (file->error == EACCES)
-	//	perm_denied(file->name, info);
 	if (file->error == EPERM)
 		return;
 	else

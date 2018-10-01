@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:04:43 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 02:36:36 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 09:50:58 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int					ft_files(char **av)
 	while (av[a])
 	{
 		if (correct_args(av[a]) == 1)
-			ret++;
+			ret = 1;
 		a++;
 	}
 	return (ret);
@@ -102,7 +102,10 @@ int					correct_args(char *str)
 	if ((stats = (struct stat *)malloc(sizeof(struct stat))) == NULL)
 		return (ret);
 	if (lstat(str, stats) == -1)
+	{
+		free(stats);
 		return (ret);
+	}
 	ret = 1;
 	free(stats);
 	return (ret);

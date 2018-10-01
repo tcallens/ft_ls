@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 01:17:05 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 03:00:20 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 09:51:15 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_pad		*ft_init_pad(void)
 {
 	t_pad	*pad;
 
-	pad = malloc(sizeof(t_pad));
+	pad = (t_pad *)malloc(sizeof(t_pad));
 	pad->directory_number = 0;
 	pad->perms = 0;
 	pad->links = 0;

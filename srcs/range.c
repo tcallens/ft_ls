@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 00:49:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/29 03:03:08 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 07:27:17 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ char			**ft_range_r(char **tab, int nbr, t_args *args)
 {
 	int			a;
 	char		*tmp;
+	int			ret;
 
-	a = 0;
 	tmp = NULL;
+	ret = nbr;
+	a = 0;
 	if (args->r == 1 && nbr > 0)
 	{
-		while (a < nbr)
+		while (a <= ret)
 		{
 			tmp = tab[a];
 			tab[a] = tab[nbr];

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/30 04:39:00 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 10:23:03 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,70 +25,74 @@ void		ft_ls_dir(char *name, t_args *args, int ind)
 	tabdir = bef_fill_dir(name, info);
 	pad = ft_fill_pad(ft_init_pad(), info.size, tabdir, args);
 	not_permitted(tabdir, info);
-	ft_print_dir_l(tabdir, ind++, name, info.size, args, pad, info);
-	//free_dir(tabdir, info.size);
+	tabdir = ft_print_dir_l(tabdir, ind++, name, info.size, args, pad);
 	free(pad);
 	info.ind = ind;
 	if (args->R == 1)
 		ft_rec(name, args, info, tabdir);
 	free(name);
+	free_dir(tabdir, info.size);
 }
 
 void		ft_rec(char *name, t_args *args, t_info info, t_file **tabdir)
 {
 	char			*path;
-	//DIR				*dir;
-	//struct dirent	*dp;
 	char			**tab;
+	int				intt[info.size + 50];
 	int				a;
 	int				b;
 
 	a = 0;
-	b = 0;
-	path = ft_strjoin(name, "/");
-	//dir = opendir(name);
-	tab = (char **)malloc(sizeof(char *) * info.size);
-/*while ((dp = readdir(dir)) != NULL && args->R == 1)
+	b = -1;
+	while (a < info.size)
 	{
-		if (dp->d_name[0] == '.' && dp->d_name[1] && dp->d_name[1] != '.'
-				&& args->a == 1
-				&& (correct_args_free(ft_strjoin(path, dp->d_name)) == 2)
-				&& (ft_file_link(ft_strjoin(path, dp->d_name)) == 0))
-			tab[a++] = ft_strjoin(path, dp->d_name);
-		else if (dp->d_name[0] != '.'
-				&& correct_args_free(ft_strjoin(path, dp->d_name)) == 2 &&
-				ft_file_link(ft_strjoin(path, dp->d_name)) == 0)
-			tab[a++] = ft_strjoin(path, dp->d_name);
-	}*/
+		intt[b++] = 0;
+		a++;
+	}
+	a = 0;
+	b = -1;
+	path = ft_strjoin(name, "/");
+	tab = (char **)malloc(sizeof(char *) * info.size);
 	while (a < info.size)
 	{
 		if ((tabdir[a]->perms[0] == 'd' && tabdir[a]->name[0] != '.') ||
-				(tabdir[a]->name[0] == '.' &&
-					args->a == 1 && tabdir[a]->perms[0] == 'd'))
-			tab[b++] = ft_strjoin(tabdir[a]->name, "");
+				(tabdir[a]->name[0] == '.' && tabdir[a]->name[1] &&
+				 tabdir[a]->name[1] != '.' && args->a == 1
+				 && tabdir[a]->perms[0] == 'd'))
+		{
+			tab[++b] = ft_strjoin(path, tabdir[a]->name);
+			if (tabdir[a]->error == EACCES && tabdir[a]->perms[0] == 'd')
+				intt[b] = 1;
+		}
 		a++;
 	}
-	free_dir(tabdir, info.size);
-	ft_help_rec(b, args, tab, info);
+	ft_help_rec(b + 1, args, tab, info, intt);
 	free(path);
-	//(void)closedir(dir);
 }
 
-void		ft_help_rec(int a, t_args *args, char **tab, t_info info)
+void		ft_help_rec(int a, t_args *args, char **tab, t_info info, int *intt)
 {
 	int ret;
 
-	tab = ft_range_t(tab, a, args);
-	tab = ft_range_r(tab, --a, args);
+	//tab = ft_sort_tab(tab, a);
+	//tab = ft_range_t(tab, a, args);
+	//tab = ft_range_r(tab, --a, args);
+	a--;
 	ret = a;
 	a = 0;
 	while (a <= ret)
 	{
 		ft_putendl("");
-		if (find_error(ft_strjoin(tab[a]) != EACCES)
+		if (intt[a] == 0)
 			ft_ls_dir(tab[a++], args, info.ind);
 		else
-			perm_denied(tab[a++], info);
+		{
+			ft_putstr(tab[a]);
+			ft_putendl(":");
+			perm_denied(tab[a], 0);
+			free(tab[a++]);
+		}
 	}
+	intt[0] = 0;
 	free(tab);
 }

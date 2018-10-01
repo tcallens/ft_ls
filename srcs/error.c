@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 20:51:19 by tcallens          #+#    #+#             */
-/*   Updated: 2018/09/30 04:16:49 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/01 08:56:02 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int					correct_args_free(char *str)
 		return (ret);
 	if (lstat(str, stats) == -1)
 		return (ret);
-	ret = 1;
 	free(stats);
 	ft_memdel((void **)&str);
 	return (ret);
@@ -54,9 +53,9 @@ t_args				*ft_not_file(char *str, t_args *args)
 	return (args);
 }
 
-void				perm_denied(char *file, t_info info)
+void				perm_denied(char *file, int size)
 {
-	if (info.size > 2)
+	if (size > 2)
 		ft_putchar('\n');
 	ft_putstr_fd("./ft_ls: ", STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);
