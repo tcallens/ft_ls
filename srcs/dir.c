@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:00:32 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/01 09:41:40 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 06:17:26 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,24 @@ t_file				**ft_init_dir(int nbr, t_file **dir)
 	return (dir);
 }
 
-t_file				*fill_stats(t_file *dir, char *name, char *path, t_stats *stats)
+t_file				*fill_stats(t_file *d, char *n, char *pat, t_stats *stats)
 {
 	char			*ret;
 
 	ret = NULL;
-	dir->name = ft_strdup(name);
-	dir->path = ft_strdup(path);
-	dir->perms = find_modes(stats, ret);
-	dir->links = stats->st_nlink;
-	dir->linkpath = find_link(path);
-	dir->user = find_user(stats);
-	dir->group = find_group(stats);
-	dir->size = find_majmin(stats);
-	dir->timestamp = stats->st_mtime;
-	dir->ntimestamp = stats->st_mtimespec.tv_nsec;
-	dir->blocks = stats->st_blocks;
-	dir->error = find_error(name);
-	return (dir);
+	d->name = ft_strdup(n);
+	d->path = ft_strdup(pat);
+	d->perms = find_modes(stats, ret);
+	d->links = stats->st_nlink;
+	d->linkpath = find_link(pat);
+	d->user = find_user(stats);
+	d->group = find_group(stats);
+	d->size = find_majmin(stats);
+	d->timestamp = stats->st_mtime;
+	d->ntimestamp = stats->st_mtimespec.tv_nsec;
+	d->blocks = stats->st_blocks;
+	d->error = find_error(n);
+	return (d);
 }
 
 t_file				**bef_fill_dir(char *name, t_info info)
@@ -88,7 +88,7 @@ t_file				**bef_fill_dir(char *name, t_info info)
 	return (file);
 }
 
-t_file				**fill_dir(char *name, char *path, t_info info, t_file **file)
+t_file				**fill_dir(char *n, char *pat, t_info info, t_file **file)
 {
 	DIR				*dir;
 	struct stat		*stats;
@@ -97,11 +97,11 @@ t_file				**fill_dir(char *name, char *path, t_info info, t_file **file)
 	int				a;
 
 	a = 0;
-	if ((dir = opendir(name)) == NULL)
+	if ((dir = opendir(n)) == NULL)
 		return (NULL);
 	while (a < info.size && (dp = readdir(dir)) != NULL)
 	{
-		tmp = ft_strjoin(path, dp->d_name);
+		tmp = ft_strjoin(pat, dp->d_name);
 		if ((stats = (struct stat *)malloc(sizeof(struct stat))) != NULL)
 		{
 			lstat(tmp, stats);

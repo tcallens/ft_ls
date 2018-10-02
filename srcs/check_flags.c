@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:04:43 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/01 09:50:58 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 06:50:20 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					ft_options(char *str, t_args *args)
 		if (str[a] == 'l')
 			args->l = 1;
 		if (str[a] == 'R')
-			args->R = 1;
+			args->rec = 1;
 		if (str[a] == 'a')
 			args->a = 1;
 		if (str[a] == 'r')
@@ -44,15 +44,7 @@ t_args				*ft_init_args(char **av)
 	int				b;
 
 	a = 1;
-	if ((args = (t_args *)malloc(sizeof(t_args))) == NULL)
-		return (NULL);
-	args->l = 0;
-	args->R = 0;
-	args->a = 0;
-	args->r = 0;
-	args->t = 0;
-	args->nbrfiles = ft_files(av);
-	args->notfile = 0;
+	args = ft_i_a_help(av);
 	while (av[a] && av[a][0] == '-')
 	{
 		if (!(av[a][1]))
@@ -66,6 +58,22 @@ t_args				*ft_init_args(char **av)
 			args = ft_not_file(av[a], args);
 		a++;
 	}
+	return (args);
+}
+
+t_args				*ft_i_a_help(char **av)
+{
+	t_args			*args;
+
+	if ((args = (t_args *)malloc(sizeof(t_args))) == NULL)
+		return (NULL);
+	args->l = 0;
+	args->rec = 0;
+	args->a = 0;
+	args->r = 0;
+	args->t = 0;
+	args->nbrfiles = ft_files(av);
+	args->notfile = 0;
 	return (args);
 }
 

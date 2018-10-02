@@ -6,29 +6,30 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 01:17:05 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/01 09:51:15 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 06:06:23 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-t_pad		*ft_init_pad(void)
+t_pad		ft_init_pad(void)
 {
-	t_pad	*pad;
+	t_pad	pad;
 
-	pad = (t_pad *)malloc(sizeof(t_pad));
-	pad->directory_number = 0;
-	pad->perms = 0;
-	pad->links = 0;
-	pad->user = 0;
-	pad->group = 0;
-	pad->size = 0;
-	pad->timestamp = 0;
-	pad->name = 0;
+	pad.directory_number = 0;
+	pad.perms = 0;
+	pad.links = 0;
+	pad.user = 0;
+	pad.group = 0;
+	pad.size = 0;
+	pad.timestamp = 0;
+	pad.name = 0;
+	pad.ind = 0;
+	pad.nbr = 0;
 	return (pad);
 }
 
-t_pad		*ft_fill_pad(t_pad *pad, int nbr, t_file **file, t_args *args)
+t_pad		ft_fill_pad(t_pad pad, int n, t_file **file, t_args *args)
 {
 	int		a;
 	int		links;
@@ -36,10 +37,10 @@ t_pad		*ft_fill_pad(t_pad *pad, int nbr, t_file **file, t_args *args)
 	int		group;
 	int		size;
 
-	a = 0;
+	a = -1;
 	if (file == NULL)
-		return (NULL);
-	while (a < nbr)
+		return (pad);
+	while (++a < n)
 	{
 		links = ft_nbrlen(file[a]->links);
 		user = ft_strlen(file[a]->user);
@@ -48,12 +49,11 @@ t_pad		*ft_fill_pad(t_pad *pad, int nbr, t_file **file, t_args *args)
 		if ((args->a == 1 && file[a]->name[0] == '.')
 				|| file[a]->name[0] != '.')
 		{
-			pad->links = ft_if(links, pad->links);
-			pad->user = ft_if(user, pad->user);
-			pad->group = ft_if(group, pad->group);
-			pad->size = ft_if(size, pad->size);
+			pad.links = ft_if(links, pad.links);
+			pad.user = ft_if(user, pad.user);
+			pad.group = ft_if(group, pad.group);
+			pad.size = ft_if(size, pad.size);
 		}
-		a++;
 	}
 	return (pad);
 }

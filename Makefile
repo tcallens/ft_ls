@@ -6,7 +6,7 @@
 #    By: tcallens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/01 08:30:21 by tcallens          #+#    #+#              #
-#    Updated: 2018/10/01 08:36:15 by tcallens         ###   ########.fr        #
+#    Updated: 2018/10/02 05:31:53 by tcallens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS = ./srcs/main.c\
 	  ./srcs/pad.c\
 	  ./srcs/print_plus.c\
 	  ./srcs/range_plus.c\
+	  ./srcs/utils_plus.c\
 	
 
 OPTIONS = -g -Wall -Wextra -Werror
