@@ -6,13 +6,14 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 16:36:42 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 06:33:50 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 10:35:00 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
 
+# include <time.h>
 # include <unistd.h>
 # include <sys/stat.h>
 # include <stdio.h>
@@ -52,6 +53,7 @@ typedef struct		s_info
 	int				type;
 	int				ind;
 	int				afhr;
+	char			*path;
 }					t_info;
 
 typedef struct		s_args
@@ -85,10 +87,10 @@ typedef struct		s_file
 ** fonctions
 */
 
+char				*ft_cmp_if(char *name);
 t_args				*ft_i_a_help(char **av);
 int					find_files_help(int b, t_args *ar, char **av, t_pad p);
 void				ft_perm_denied(int nbr, char *name);
-void				ft_free_help(char *name, int *tab);
 int					*ft_fill_int(int nbr);
 char				**ft_sort_tab(char **tab, int nbr);
 t_file				**ft_sort_as(t_file **tab, int nbr);

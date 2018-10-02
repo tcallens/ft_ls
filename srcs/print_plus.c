@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 01:47:02 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 05:24:09 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 08:11:48 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_file		**ft_p_dir_l(t_file **f, char *n, t_args *ar, t_pad p)
 	a = -1;
 	if ((p.ind > 1 || ar->nbrfiles > 0) || ar->notfile == 1)
 		ft_double_point(n);
-	if (ar->l == 1)
+	if (ar->l == 1 && p.nbr > 0)
 		print_blocks(f, p.nbr, ar);
 	f = ft_sort_as(f, p.nbr);
 	f = ft_range_t_dir(f, p.nbr, ar);

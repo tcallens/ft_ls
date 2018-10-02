@@ -6,7 +6,7 @@
 #    By: tcallens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/01 08:30:21 by tcallens          #+#    #+#              #
-#    Updated: 2018/10/02 05:31:53 by tcallens         ###   ########.fr        #
+#    Updated: 2018/10/02 09:56:04 by tcallens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS = ./srcs/main.c\
 	  ./srcs/utils_plus.c\
 	
 
-OPTIONS = -g -Wall -Wextra -Werror
+OPTIONS = -g3 -Wall -Wextra -Werror
 
 RM = rm -rf
 
@@ -45,6 +45,8 @@ BLUE = \033[1;34m
 RESET = \033[0m
 
 .PHONY : all clean fclean re
+
+all: $(NAME)
 
 $(NAME):
 	@clear
@@ -77,5 +79,3 @@ fclean: clean
 	@clear
 
 re: fclean all
-
-all: $(NAME)

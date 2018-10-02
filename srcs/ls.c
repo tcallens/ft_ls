@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 06:21:28 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 10:37:11 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,8 @@ int			*ft_fill_int(int nbr)
 	return (tab);
 }
 
-void		ft_free_help(char *name, int *tab)
-{
-	free(name);
-	free(tab);
-}
-
 void		ft_rec(char *n, t_args *args, t_info inf, t_file **tabdir)
 {
-	char	*path;
 	char	**tab;
 	int		*intt;
 	int		a;
@@ -66,7 +59,7 @@ void		ft_rec(char *n, t_args *args, t_info inf, t_file **tabdir)
 	a = -1;
 	inf.afhr = -1;
 	intt = ft_fill_int(inf.size + 50);
-	path = ft_strjoin(n, "/");
+	inf.path = ft_cmp_if(n);
 	tab = (char **)malloc(sizeof(char *) * inf.size);
 	while (++a < inf.size)
 	{
@@ -75,36 +68,48 @@ void		ft_rec(char *n, t_args *args, t_info inf, t_file **tabdir)
 					&& tabdir[a]->name[1] != '.' && args->a == 1
 					&& tabdir[a]->perms[0] == 'd'))
 		{
-			tab[++inf.afhr] = ft_strjoin(path, tabdir[a]->name);
+			tab[++inf.afhr] = ft_strjoin(tabdir[a]->name, "");
 			if (tabdir[a]->error == EACCES && tabdir[a]->perms[0] == 'd')
 				intt[inf.afhr] = 1;
 		}
 	}
 	ft_help_rec(args, tab, inf, intt);
-	ft_free_help(path, intt);
+	free(intt);
+}
+
+char		*ft_cmp_if(char *name)
+{
+	if (ft_strcmp(name, "/") == 0)
+		return (ft_strjoin(name, ""));
+	else
+		return (ft_strjoin(name, "/"));
 }
 
 void		ft_help_rec(t_args *ar, char **tab, t_info i, int *intt)
 {
 	int		ret;
 	int		a;
+	char	*tmp;
 
 	a = i.afhr;
 	ret = a;
 	a = 0;
+	tmp = NULL;
 	while (a <= ret)
 	{
+		tmp = ft_strjoin(i.path, tab[a]);
 		ft_putendl("");
 		if (intt[a] == 0)
-			ft_ls_dir(tab[a++], ar, i.ind);
+			ft_ls_dir(tmp, ar, i.ind);
 		else
 		{
-			ft_putstr(tab[a]);
-			ft_putendl(":");
+			ft_double_point(tmp);
 			perm_denied(tab[a], 0);
-			free(tab[a++]);
 		}
+		free(tab[a]);
+		a++;
 	}
+	free(i.path);
 	intt[0] = 0;
 	free(tab);
 }
