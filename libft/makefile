@@ -6,7 +6,7 @@
 #    By: tcallens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/11 21:18:59 by tcallens          #+#    #+#              #
-#    Updated: 2018/09/25 02:40:07 by tcallens         ###   ########.fr        #
+#    Updated: 2018/10/02 10:55:03 by tcallens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME = libft.a
 FLAGS = -Wall -Wextra -Werror
 
 SRC =\
-	 ft_strjoin_free_s1.c\
 	 ft_atoi.c\
 	 ft_bzero.c\
 	 ft_isalnum.c\

@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 02:15:58 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 10:37:11 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:54:15 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void		ft_help_rec(t_args *ar, char **tab, t_info i, int *intt)
 	int		a;
 	char	*tmp;
 
-	a = i.afhr;
-	ret = a;
+	ret = i.afhr;
 	a = 0;
 	tmp = NULL;
 	while (a <= ret)
@@ -105,6 +104,7 @@ void		ft_help_rec(t_args *ar, char **tab, t_info i, int *intt)
 		{
 			ft_double_point(tmp);
 			perm_denied(tab[a], 0);
+			free(tmp);
 		}
 		free(tab[a]);
 		a++;

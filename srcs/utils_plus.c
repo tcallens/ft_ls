@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 05:29:18 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 06:03:44 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 18:05:26 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int				find_files_help(int b, t_args *ar, char **av, t_pad p)
 		tab = ft_range_r(tab, b - 1, ar);
 		file = fill_files(b, tab);
 		p = ft_fill_pad(ft_init_pad(), b, file, ar);
-		b = ft_print_files(file, b, ar, p);
+		a = ft_print_files(file, b, ar, p);
 		free(tab);
 		free_dir(file, b);
+		b = a;
 	}
 	return (b);
 }
@@ -87,6 +88,7 @@ t_file			**fill_files(int nbr, char **av)
 		}
 		a++;
 	}
+	free(path);
 	return (file);
 }
 

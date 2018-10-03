@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:10:52 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 03:48:08 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 11:21:43 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,19 @@ int		next_dir_offset(char **av)
 
 char	*find_majmin(struct stat *stats)
 {
-	char *ret;
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
 
 	if (!S_ISCHR(stats->st_mode) && !S_ISBLK(stats->st_mode))
 		return (ft_itoa(stats->st_size));
 	else
 	{
-		ret = ft_strjoin(ft_itoa(major(stats->st_rdev)), ", ");
-		ret = ft_strjoin(ret, ft_itoa(minor(stats->st_rdev)));
-		ret = ft_strjoin(ret, "\0");
+		tmp = ft_strjoin(ft_itoa(major(stats->st_rdev)), ", ");
+		tmp2 = ft_strjoin(tmp, ft_itoa(minor(stats->st_rdev)));
+		ret = ft_strjoin(tmp2, "\0");
+		free(tmp);
+		free(tmp2);
 	}
 	return (ret);
 }

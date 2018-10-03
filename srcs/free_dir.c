@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 01:17:30 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/01 09:41:53 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 11:21:15 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_file(t_file *dir)
 		ft_strdel(&dir->group);
 		ft_strdel(&dir->size);
 		ft_strdel(&dir->linkpath);
+		ft_strdel(&dir->size);
 		free(dir);
 	}
 }

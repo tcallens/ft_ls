@@ -6,7 +6,7 @@
 /*   By: tcallens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 04:13:07 by tcallens          #+#    #+#             */
-/*   Updated: 2018/10/02 10:46:08 by tcallens         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:13:28 by tcallens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ int		find_error(char *file)
 
 	dir = opendir(file);
 	if (errno == EACCES)
+	{
+		if (dir != NULL)
+			(void)closedir(dir);
 		return (errno);
+	}
 	if (dir != NULL)
 		(void)closedir(dir);
 	if ((stats = malloc(sizeof(struct stat))) == NULL)
