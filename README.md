@@ -8,5 +8,5 @@ FINAL MARK : 104%
 
 -> to use it:
    - clone the repository.
-   - do "make"
-   - ./ft_ls [FLAGS -Rtarl] [FILE]
+   - do "make".
+   - ./ft_ls [FLAGS -Rtarl] [FILE].
